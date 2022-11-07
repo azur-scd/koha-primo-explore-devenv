@@ -35,7 +35,7 @@ Ouvrir http://localhost:8002/primo-explore/search?vid=UNS
 
 ### CI/CD
 
-Chaque commit/push sur Github déclenche une Github Action qui rebuild et push l'image sur Docker Hub.
+Chaque commit/push sur Github déclenche une Github Action qui rebuilde et push l'image sur Docker Hub.
 
 ## Prod
 
