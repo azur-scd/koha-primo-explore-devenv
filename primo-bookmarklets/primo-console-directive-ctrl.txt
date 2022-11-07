@@ -1,0 +1,7 @@
+javascript:(function() {
+let directive = 'prm-search-bar'
+e = angular.element(document.querySelector(directive));
+c = e.controller(directive);
+console.log(e);
+console.log(c);
+})();
