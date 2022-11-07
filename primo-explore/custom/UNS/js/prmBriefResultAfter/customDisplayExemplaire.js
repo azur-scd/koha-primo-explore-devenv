@@ -12,8 +12,7 @@ angular.module('customDisplayExemplaire', []).controller('customDisplayExemplair
             var sourcerecordid = "136"
             /*---End Test---*/
             if (sourceid.includes("sc_aleph")) {
-                //var url = `${URLs.testbiblibre_koha_api_public}biblios/${sourcerecordid.toString()}/items`;
-                //var url = "http://dev-scd.unice.fr/koha-primo-middleware/api/v1/koha_items/136";
+                //var url = URLs._testbiblibre_koha_api_public + "biblios/" + sourcerecordid.toString() +"/items";
                 var url = URLs._test_koha_primo_middleware + "api/v1/koha_items/" + sourcerecordid
                 $http({
                     "headers": {

@@ -33,10 +33,6 @@ docker run -d --name koha-primo-explore-devenv -p 8002:8003 -v <your_path>/primo
 
 Ouvrir http://localhost:8002/primo-explore/search?vid=UNS
 
-### CI/CD
-
-Chaque commit/push sur Github déclenche une Github Action qui rebuilde et push l'image sur Docker Hub.
-
 ## Prod
 
 Dépôt Docker Hub : [https://hub.docker.com/repository/docker/azurscd/koha-primo-explore-devenv](https://hub.docker.com/repository/docker/azurscd/koha-primo-middleware)
@@ -46,5 +42,9 @@ Déployé en prod-test sur dev-scd.unice.fr (ex : [http://dev-scd.unice.fr/primo
 ## Utils
 
 Contient dans le dossier /primo-bookmarklets des codes à installer en favoris dans le navigateur comme aide au développement des directives/components Angular.
+
+## Todo 
+
+- CI/CD : debugger 
 
 
