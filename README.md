@@ -28,7 +28,7 @@ Ouvrir http://localhost:8003/primo-explore/search?vid=UNS
 ```
 git clone https://github.com/azur-scd/koha-primo-explore-devenv.git
 docker build -t azurscd/koha-primo-explore-devenv:latest .
-docker run -d --name koha-primo-explore-devenv -p 8002:8003 -v <your_path>/primo-explore/custom/UNS:/usr/src/app/primo-explore/custom/UNS azurscd/koha-primo-explore-devenv:latest
+docker run -d --name koha-primo-explore-devenv -p 8002:8003 -p 3001:3001 -v <your_path>/primo-explore/custom/UNS:/usr/src/app/primo-explore/custom/UNS azurscd/koha-primo-explore-devenv:latest
 ```
 
 Ouvrir http://localhost:8002/primo-explore/search?vid=UNS
