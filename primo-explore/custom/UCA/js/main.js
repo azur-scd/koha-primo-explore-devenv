@@ -44,7 +44,7 @@ import {customDisplayExemplaire} from './prmBriefResultAfter/customDisplayExempl
     });
 
 app.run(['$templateCache', function($templateCache) {
-  $templateCache.put('components/search/searchResult/searchResultAvailability/searchResultAvailabilityLine.html','<prm-search-result-availability-koha ng-if="{{items}}"></prm-search-result-availability-koha>');	
+  $templateCache.put('components/search/searchResult/searchResultAvailability/searchResultAvailabilityLine.html','<prm-uca-search-result-availability-koha ng-if="{{items}}"></prm-uca-search-result-availability-koha>');	
 
 }]);
      /*if customDisplayExemplaire_without_module : 
