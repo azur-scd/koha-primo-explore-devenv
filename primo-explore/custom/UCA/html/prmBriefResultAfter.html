@@ -1,7 +1,8 @@
-<!--<div ng-hide="$ctrl.parentCtrl.prmBriefResultAfter"></div>-->
-<prm-uca-search-result-availability-koha ng-if="items">
+<prm-uca-search-result-availability-koha ng-if="kohaDisplay">
+    <!--<div ng-hide="$ctrl.parentCtrl.prmBriefResultAfter"></div>-->
+    <!--<div ng-hide="$scope.$parent.$parent.prmSearchResultAvailabilityLine"></div>-->
      <!--1er exemplaire-->
-    <div layout="row" layout-align="start start" class="layout-align-start-start layout-row item-brief-result-uca">
+    <div layout="row" layout-align="start start" class="layout-align-start-start layout-row item-brief-result-uca" ng-if="items">
         <div layout="flex" class="layout-row">  
             <prm-icon availability-type="" icon-type="svg" svg-icon-set="primo-ui" icon-definition="book-open">
                 <md-icon md-svg-icon="primo-ui:book-open" alt="" class="md-primoExplore-theme" aria-hidden="true">
@@ -14,18 +15,18 @@
                 </md-icon>
                 <prm-icon-after parent-ctrl="$ctrl"></prm-icon-after>
             </prm-icon>
-            <button class="neutralized-button md-button md-primoExplore-theme md-ink-ripple" type="button"
+            <button class="neutralized-button md-button md-primoExplore-theme md-ink-ripple koha-item" type="button"
                 prm-brief-internal-button-marker=""
                 ng-click="$ctrl.handleAvailability($index, $event);$event.preventDefault();"
                 aria-label="{{status}} {{branch}}" title="{{status}} {{branch}}">
                 <span class="button-content">
                     <span ng-if="items">
                         <span
-                            ng-style="{ 'color' : (items[0].checked_out_date == 'Disponible') ? '#0f7d00' : 'tomato' }">{{items[0].checked_out_date}}</span>
+                            ng-style="{ 'color' : (items[0].availability == 'Disponible') ? '#0f7d00' : 'tomato' }">{{items[0].availability}}</span>
                         <span class="best-location-library-code locations-link">{{items[0].home_library_id}}</span>
                         <span class="best-location-sub-location locations-link">{{items[0].location}}</span>
                         <span class="best-location-delivery locations-link">({{items[0].callnumber}})</span>
-                        <span ng-if="items[0].item_type_id">({{items[0].item_type_id}})</span>
+                        <!--<span ng-if="items[0].loan_type">({{items[0].item_loan_type}})</span>-->
                         <span ng-if="items[0].serial_issue_number">({{items[0].serial_issue_number}})</span>
                         <md-icon ng-if="::(!$ctrl.isCustom &amp;&amp; !$ctrl.isEmailMode())"
                             md-svg-icon="primo-ui:chevron-right" alt="" class="md-primoExplore-theme"
@@ -50,11 +51,11 @@
                 ng-click="$ctrl.handleAvailability($index, $event);$event.preventDefault();"
                 aria-label="{{status}} {{branch}}" title="{{status}} {{branch}}">
                 <span class="button-content" ng-if="record_type == 'book'">
-                    {{items.length == 2 ? '1 autre exemplaire est disponible pour ce document' : items.length - 1 + '
-                    autres exemplaires sont disponibles pour ce document'}}</span>
+                    {{items.length == 2 ? 'Un autre exemplaire est disponible pour ce document' : items.length - 1 + 
+                    ' autres exemplaires sont disponibles pour ce document'}}</span>
                 <span class="button-content" ng-if="record_type == 'journal'">
-                    {{items.length == 2 ? '1 autre collection est disponible pour cette revue' : items.length - 1 + '
-                    autres collectionss sont disponibles pour cette revue'}}
+                    {{items.length == 2 ? 'Une autre collection est disponible pour cette revue' : items.length - 1 + 
+                    ' autres collections sont disponibles pour cette revue'}}
                 </span>
                 <md-icon ng-if="::(!$ctrl.isCustom &amp;&amp; !$ctrl.isEmailMode())"
                     md-svg-icon="primo-ui:chevron-right" alt="" class="md-primoExplore-theme" aria-hidden="true"><svg

@@ -1,3 +1,7 @@
 # Ignore node_modules folder#
 ###################
 **/*node_modules*/**
+
+# Ignore local windows batch files #
+###################
+*.bat

@@ -168,6 +168,7 @@ var SERVERS = {
  */
 //var PROXY_SERVER = 'http://catalogue.unice.fr';
 var PROXY_SERVER = 'https://univ-cotedazur-primo.hosted.exlibrisgroup.com:443';
+//var PROXY_SERVER = 'https://catalogue.bu.univ-cotedazur.fr:443'
 
 let buildParams = {
     customFile: customFile,
