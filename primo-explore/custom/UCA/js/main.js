@@ -58,6 +58,11 @@ app.component('prmTopBarBefore', {
   }]
 });
 
+// matomo
+app.component('prmExploreMainAfter', {
+  templateUrl: 'custom/UCA/html/matomo.html'
+});
+
 app.run(['$templateCache', function($templateCache) {
   $templateCache.put('components/search/fullView/getit/opac/locations/locations.html','<prm-uca-items-table-koha></prm-uca-items-table-koha>');
 }]);
