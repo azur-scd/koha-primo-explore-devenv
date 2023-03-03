@@ -17,12 +17,8 @@ prm-search > md-content.md-primoExplore-theme .main {
 
 */
 /* UCA customisation */
-prm-uca-search-result-availability-koha > div.item-brief-result-uca {
-    margin-top: 10px;
-}
-
-.md-button.koha-item {
-    margin-left: 5px;
+md-icon {
+  margin-right: 5px;
 }
 
 h3.section-title {

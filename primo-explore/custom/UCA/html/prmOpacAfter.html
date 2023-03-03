@@ -1,53 +1,48 @@
 <prm-uca-items-table-koha>
     <div class="bar alert-bar zero-margin-bottom layout-align-center-center layout-row" ng-if="userIsGuest">
         <div class="md-dialog-content">
-            Veuillez vous identifier pour réserver/faire venir des exemplaires.
+            Veuillez vous identifier pour réserver/faire venir des documents.
             <prm-authentication></prm-authentication>
         </div>
     </div>
     <div layout="row" layout-align="space-between center">
-    <h3 class="section-title"><span translate="nui.locations.header"></span>
-    </h3>
-    <!--<button class="md-button md-primoExplore-theme button-reservation" ng-if="type != 'journal'"><a href="https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu/cgi-bin/koha/opac-reserve.pl?biblionumber={{biblio_id}}" target="_blanck">Réserver/Faire
-        venir</a></button>-->
-        <button class="md-button md-primoExplore-theme button-reservation" ng-if="record_type != 'journal'" ng-click="open()">Réserver/Faire
-            venir</button>
+        <h3 class="section-title"><span translate="nui.locations.header"></span>
+        </h3>
+        <button class="md-button md-primoExplore-theme button-reservation" ng-if="record_type != 'journal'"
+            ng-click="open()">Réservation/Navette interBU</button>
     </div>
     <md-list ng-if="items" layout="column"
         class="separate-list-items margin-left-medium md-primoExplore-theme layout-column" role="list">
         <md-list-item ng-repeat="item in items" class="md-2-line md-no-proxy _md" role="listitem">
-            <div layout="row" flex>
-                <div class="md-list-item-text" layout="row" layout-wrap flex>
-                    <div flex="20" flex-xs="50" flex-sm="50" class="flex-xs-50 flex-sm-50 flex-20">
-                        <div ng-if="item.home_library_id">
-                            <h4 class="homebranch"><strong> {{item.home_library_id}}</strong></h4>
-                            <md-tooltip>{{item.home_library_id}}</md-tooltip>
-                        </div>
+            <div class="koha-items-table md-list-item-text" layout="row" layout-wrap flex>
+                <div flex-xs="110" flex-sm="110" flex-md="35" flex-lg="35">
+                    <div ng-if="item.home_library_id">
+                        <h4 class="homebranch"><strong> {{item.home_library_id}}</strong></h4>
+                        <md-tooltip>{{item.home_library_id}}</md-tooltip>
                     </div>
-                    <div flex="" flex-xs="100" flex-sm="100" class="flex-xs-100 flex-sm-100 flex">
-                        <p class="weak-text" ng-if="item.location"> {{item.location}}</p>
-                        <p class="callnum" ng-if="item.callnumber"> {{item.callnumber}} ({{item.loan_type}})</p>
-                        <md-tooltip>
-                            <span ng-if="item.location">{{item.location}}</span>
-                            <span ng-if="item.callnumber">{{item.callnumber}}</span>
-                            <span ng-if="item.loan_type">{{item.loan_type}}</span>
-                        </md-tooltip>
-                    </div>
-                    <div class="availability-status-block layout-align-end-stretch flex-xs-100 flex-sm-100 flex-initial"
-                        layout-align="end" flex-xs="100" flex-sm="100" flex="initial">
-                        <div ng-if="item.availability">
-                            <p ng-style="{ 'color' : (item.availability == 'Disponible') ? '#0f7d00' : 'tomato' }">
-                                {{item.availability}}</p>
-                            <md-tooltip>{{item.availability}}</md-tooltip>
-                        </div>
-                        <div ng-if="item.serial_issue_number">
-                            <p> {{item.serial_issue_number}}</p>
-                            <md-tooltip>{{item.serial_issue_number}}</md-tooltip>
-                        </div>
-                    </div>
-
                 </div>
-            </div>
+                <div flex-xs="100" flex-sm="100" flex-md="15" flex-lg="15">
+                    <p class="weak-text" ng-if="item.location"> {{item.location}}</p>
+                    <p class="callnum" ng-if="item.callnumber"> {{item.callnumber}} <span
+                            ng-if="item.loan_type">({{item.loan_type}})</span></p>
+                    <md-tooltip>
+                        <span ng-if="item.location">{{item.location}}</span>
+                        <span ng-if="item.callnumber">{{item.callnumber}}</span>
+                        <span ng-if="item.loan_type">{{item.loan_type}}</span>
+                    </md-tooltip>
+                </div>
+
+                <div flex-xs="120" flex-sm="120" flex-md="40" flex-lg="40">
+                    <div ng-if="item.availability">
+                        <p ng-style="{ 'color' : (item.availability == 'Disponible') ? '#0f7d00' : 'tomato' }">
+                            {{item.availability}}</p>
+                        <md-tooltip>{{item.availability}}</md-tooltip>
+                    </div>
+                    <div ng-if="item.serial_issue_number">
+                        <p> {{item.serial_issue_number}}</p>
+                        <md-tooltip>{{item.serial_issue_number}}</md-tooltip>
+                    </div>
+                </div>
         </md-list-item>
     </md-list>
 </prm-uca-items-table-koha>

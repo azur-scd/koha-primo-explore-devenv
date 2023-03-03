@@ -14,29 +14,25 @@ import {kohaItemsTable} from './prmOpacAfter/kohaItemsTable';
   //factory pour requête API
   app.config(['$sceDelegateProvider', function ($sceDelegateProvider) {
       let urlWhitelist = $sceDelegateProvider.resourceUrlWhitelist();
-      //urlWhitelist.push('http://catalogue.unice.fr:1701/primo_library/libweb/custom/getapiprimoforbdd','http://catalogue.unice.fr:1701/primo_library/libweb/custom/getbusgeoloc','https://api.archives-ouvertes.fr**','https://books.google.com**','http://books.google.com**','https://maps.google.com/maps**');
-      urlWhitelist.push('http://catalogue.unice.fr:1701**', 'http://catalogue.unice.fr**','https://demo.biblibre.com**','https://pro-bu-cotedazur-koha.preprod.biblibre.eu**', 'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu**', 'https://api.archives-ouvertes.fr**','https://books.google.com**','http://books.google.com**','https://bu.univ-cotedazur.fr**','http://localhost:8003**','http://localhost:5000**','http://dev-scd.unice.fr**', 'https://api-scd.univ-cotedazur.fr**');
+      urlWhitelist.push('http://catalogue.unice.fr:1701**',
+                        'http://catalogue.unice.fr**',
+                        'https://demo.biblibre.com**',
+                        'https://pro-bu-cotedazur-koha.preprod.biblibre.eu**',
+                        'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu**',
+                        'https://api.archives-ouvertes.fr**',
+                        'https://books.google.com**',
+                        'http://books.google.com**',
+                        'https://bu.univ-cotedazur.fr**',
+                        'http://localhost:8003**',
+                        'https://localhost:5000**',
+                        'http://dev-scd.unice.fr**',
+                        'https://api-scd.univ-cotedazur.fr**');
       $sceDelegateProvider.resourceUrlWhitelist(urlWhitelist);
     }])
 
-   /* app.factory('getExternalHttpService', ['$http', function ($http) {
-        return {
-          getApiData: function getApiData(url) {
-            return $http({
-               "headers": {
-            'X-From-ExL-API-Gateway': undefined 
-          },  
-             // jsonpCallbackParam: 'callback',
-            method: 'JSONP',
-              //method: 'GET',
-              url: url
-            });
-          }
-        };
-      }]);*/
-
       app.constant('URLs', {
-        _koha_prod: '',
+        _UCA_CAS: 'https://login.unice.fr/login?service=',
+        _koha_prod: 'https://catalogue-bu-univ-cotedazur.biblibre.fr',
         _koha_preprod: 'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu',
         _testbiblibre_koha_api_public: 'https://demo.biblibre.com/api/v1/public/',
         _testbiblibre_koha_api_privee: 'https://demo.biblibre.com/api/v1/',
@@ -63,7 +59,6 @@ app.component('prmTopBarBefore', {
 });
 
 app.run(['$templateCache', function($templateCache) {
-  //$templateCache.put('components/search/searchResult/searchResultAvailability/searchResultAvailabilityLine.html','<prm-uca-search-result-availability-koha></prm-uca-search-result-availability-koha>');	
   $templateCache.put('components/search/fullView/getit/opac/locations/locations.html','<prm-uca-items-table-koha></prm-uca-items-table-koha>');
 }]);
      /*if customDisplayExemplaire_without_module : 
@@ -71,5 +66,3 @@ app.run(['$templateCache', function($templateCache) {
        2. enlever l'instanciation du module dans angular.module
        3. ajouter app.component('prmBriefResultAfter', customDisplayExemplaireConfig);
      */
-
-

@@ -1,9 +1,8 @@
-angular.module('kohaItemsAvailability', []).controller('kohaItemsAvailabilityController', ['$compile', '$scope', '$rootScope' ,'$http', '$element', '$sce', '$templateCache','URLs', function ($compile, $scope, $rootScope, $http, $element, $sce, $templateCache,URLs) {
+angular.module('kohaItemsAvailability', []).controller('kohaItemsAvailabilityController', ['$scope', '$http', '$element', 'URLs', function ($scope, $http, $element, URLs) {
     this.$onInit = function() {
         if ($scope.$ctrl.parentCtrl.item) {
              /*---koha display false----*/
             $scope.kohaDisplay = false; 
-            //$element.children().addClass("ng-hide");
             /*---bib record metadata---*/
             let obj = $scope.$ctrl.parentCtrl.item.pnx;
             let type = obj.display.type[0];
@@ -12,8 +11,6 @@ angular.module('kohaItemsAvailability', []).controller('kohaItemsAvailabilityCon
             let sourceid = obj.control.sourceid[0];
             let sourcerecordid = obj.control.sourcerecordid[0]
             /*-----End prod----------*/
-    
-            //if (sourceid.includes("_KOHA")  && (type == "book" || type == "journal")) {
                 /*---items from Koha---*/
                 if (sourceid.includes("_KOHA") && toplevel != 'online_resources') {
                 //var url = URLs._preprod_koha_api_public + "biblios/" + sourcerecordid.toString() +"/items";

@@ -15,7 +15,7 @@
                 </md-icon>
                 <prm-icon-after parent-ctrl="$ctrl"></prm-icon-after>
             </prm-icon>
-            <button class="neutralized-button md-button md-primoExplore-theme md-ink-ripple koha-item" type="button"
+            <button class="neutralized-button md-button md-primoExplore-theme md-ink-ripple" type="button"
                 prm-brief-internal-button-marker=""
                 ng-click="$ctrl.handleAvailability($index, $event);$event.preventDefault();"
                 aria-label="{{status}} {{branch}}" title="{{status}} {{branch}}">
@@ -23,9 +23,9 @@
                     <span ng-if="items">
                         <span
                             ng-style="{ 'color' : (items[0].availability == 'Disponible') ? '#0f7d00' : 'tomato' }">{{items[0].availability}}</span>
-                        <span class="best-location-library-code locations-link">{{items[0].home_library_id}}</span>
-                        <span class="best-location-sub-location locations-link">{{items[0].location}}</span>
-                        <span class="best-location-delivery locations-link">({{items[0].callnumber}})</span>
+                        <span ng-if="items[0].home_library_id" class="best-location-library-code locations-link">{{items[0].home_library_id}}</span>
+                        <span ng-if="items[0].location" class="best-location-sub-location locations-link">{{items[0].location}}</span>
+                        <span ng-if="items[0].callnumber" class="best-location-delivery locations-link">({{items[0].callnumber}})</span>
                         <!--<span ng-if="items[0].loan_type">({{items[0].item_loan_type}})</span>-->
                         <span ng-if="items[0].serial_issue_number">({{items[0].serial_issue_number}})</span>
                         <md-icon ng-if="::(!$ctrl.isCustom &amp;&amp; !$ctrl.isEmailMode())"

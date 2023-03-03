@@ -16,7 +16,7 @@ Installation
 ```
 git clone https://github.com/azur-scd/koha-primo-explore-devenv.git
 npm install
-gulp run --view UNS --browserify
+gulp run --view UCA --browserify
 
 ```
 
@@ -33,6 +33,16 @@ docker run -d --name koha-primo-explore-devenv -p 8002:8003 -p 3001:3001 -v <you
 
 Ouvrir http://localhost:8002/primo-explore/search?vid=UCA
 
+### Suivi des devs (sans Docker finalement)
+
+Les packages npm sont installés dans ce dépôt pour pouvoir réaliser les devs sans voir besoin de conteneur Docker
+
+```
+nvm use 14.17.1
+gulp run --view UCA --browserify
+gulp create-package --browserify
+
+```
 ## Prod
 
 Dépôt Docker Hub : [https://hub.docker.com/repository/docker/azurscd/koha-primo-explore-devenv](https://hub.docker.com/repository/docker/azurscd/koha-primo-middleware)
