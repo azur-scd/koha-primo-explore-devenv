@@ -47,7 +47,7 @@ app.constant('URLs', {
 app.provider('KOHA_MIDDLEWARE_URL', ['URLs', function (URLs) {
   this.$get = function () {
     return {
-      _api: URLs._local_koha_primo_middleware
+      _api: URLs._devscd_koha_primo_middleware
     };
   }
 }]);
