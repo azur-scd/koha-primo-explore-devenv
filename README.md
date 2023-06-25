@@ -1,20 +1,52 @@
 # Environnement de développement Primo-Koha : UI Primo
 
-## Dev : Build & déploiement
+## Paramétrage (quelle que soit l'infrastructure)
 
-### Installation en local
+### Connection avec l'API Primo de l'instance de prod
 
-Pré-requis infra :
+*Pour obtenir les données en temps réel*
+
+Dans /gulp/config.js
+
+```
+var SERVERS = {
+    local: 'http://localhost:8003' // le port peut être modifié
+};
+var PROXY_SERVER = 'https://abc-primo.hosted.exlibrisgroup.com:443' //remplacer avec son url
+
+```
+### Connection avec le middleware Koha
+
+*Pour obtenir les données d'exemplaires en temps réel*
+
+Dans /primo-explore/custom/UCA/js/main.js
+
+```
+app.provider('KOHA_MIDDLEWARE_URL', ['URLs', function (URLs) {
+  this.$get = function () {
+    return {
+      _api: URLs._local_koha_primo_middleware //choisir l'url adéquate
+    };
+  }
+}]);
+```
+
+## Développement : Build & déploiement
+
+### Installation en local sur PC
+
+#### Pré-requis
 
 - node.js v14 (14.19.0)
 - Gulp (npm install -g gulp)
 - Browserify (npm install -g browserify)
 
 
-Installation
+#### Installation
 
 ```
 git clone https://github.com/azur-scd/koha-primo-explore-devenv.git
+nvm use 14.17.1
 npm install
 gulp run --view UCA --browserify
 
@@ -33,28 +65,46 @@ docker run -d --name koha-primo-explore-devenv -p 8002:8003 -p 3001:3001 -v <you
 
 Ouvrir http://localhost:8002/primo-explore/search?vid=UCA
 
-### Suivi des devs (sans Docker finalement)
 
-Les packages npm sont installés dans ce dépôt pour pouvoir réaliser les devs sans voir besoin de conteneur Docker
+### Installation sur serveur de développement
 
-```
-nvm use 14.17.1
-gulp run --view UCA --browserify
-gulp create-package --browserify
+#### Push local -> Docker Hub
 
 ```
-## Prod
+docker build -t azurscd/koha-primo-explore-devenv.
+docker push azurscd/koha-primo-explore-devenv:latest
+
+```
 
 Dépôt Docker Hub : [https://hub.docker.com/repository/docker/azurscd/koha-primo-explore-devenv](https://hub.docker.com/repository/docker/azurscd/koha-primo-middleware)
 
-Déployé en prod-test sur dev-scd.unice.fr (ex : [http://dev-scd.unice.fr/primo-explore/search?vid=UCA](http://dev-scd.unice.fr/primo-explore/search?vid=UCA)
+#### Pull sur serveur de développement
+
+```
+sudo docker pull azurscd/koha-primo-explore-devenv:latest
+docker run -d --name koha-primo-explore-devenv -p 8002:8003 -p 3001:3001 azurscd/koha-primo-explore-devenv:latest
+
+```
+
+#### Configurer le virtualhost du serveur web
+
+## Production : création et déploiement du package UCA
+
+En local 
+
+```
+gulp create-package --browserify
+
+```
+Génère une archive UCA.zip dans /packages, uploader ensuite le package zippé UCA.zip dans le BO Primo
+
+Dépôt Docker Hub : [https://hub.docker.com/repository/docker/azurscd/koha-primo-explore-devenv](https://hub.docker.com/repository/docker/azurscd/koha-primo-middleware)
+
 
 ## Utils
 
 Contient dans le dossier /primo-bookmarklets des codes à installer en favoris dans le navigateur comme aide au développement des directives/components Angular.
 
 ## Todo 
-
-- CI/CD : debugger 
 
 

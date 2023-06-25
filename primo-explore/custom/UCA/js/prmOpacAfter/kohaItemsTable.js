@@ -1,50 +1,56 @@
-angular.module('kohaItemsTable', []).controller('kohaItemsTableController', ['$scope', '$rootScope' ,'$http','URLs', function ($scope, $rootScope, $http,URLs) {
-    this.$onInit = function() {
+import { kohaServices } from '../customServices/kohaServices';
+
+angular.module('kohaItemsTable', ['kohaServices']).controller('kohaItemsTableController', ['$scope', '$rootScope', 'URLs', 'kohaItemDataService', function ($scope, $rootScope, URLs, kohaItemDataService) {
+    this.$onInit = function () {
         if ($scope.$ctrl.parentCtrl.item) {
-            /* --- user ---*/
+            /*---default : kohaTable display false----*/
+            $scope.kohaTableDisplay = false;
+            /* --- to detect if user is logged or not -> displaying the connection button or not---*/
             let self = this;
             self.scope = $scope;
             self.rootScope = $rootScope;
             let userData = self.rootScope.$$childHead.$ctrl.userSessionManagerService;
             console.log(userData)
             $scope.userIsGuest = userData.isGuest();
-            /*--- items ---*/
+            /*--- bib record metadata ---*/
             let obj = $scope.$ctrl.parentCtrl.item.pnx;
             let type = obj.display.type[0];
-            let toplevel = obj.facets.toplevel[0]
-            /*---Prod--------*/
+            let toplevels = obj.facets.toplevel
+            /*--- bib record identifers -------*/
             let sourceid = obj.control.sourceid[0];
             let sourcerecordid = obj.control.sourcerecordid[0]
-            /*-----End prod----------*/
-                       /*---items from Koha---*/
-                       if (sourceid.includes("_KOHA") && toplevel != 'online_resources') {
-                        let url = URLs._prodscd_koha_primo_middleware + "biblios_items/" + sourcerecordid
-                        $http({
-                            "headers": {
-                                'Content-Type': 'application/json',
-                                'X-From-ExL-API-Gateway': undefined
-                            },
-                            method: 'GET',
-                            //jsonpCallbackParam: 'callback',
-                            url: url,
-                            cache: true,
-                        }).then(function (response) {
-                            console.log(response.data)
-                            $scope.items = response.data
-                            $scope.record_type = type
-                            $scope.biblio_id = sourcerecordid
-                            let reservationUrl = URLs._UCA_CAS + URLs._koha_prod +"/cgi-bin/koha/opac-reserve.pl?biblionumber=" + sourcerecordid
-                            $scope.open = function () {
-                                window.open( reservationUrl, "_system"); 
-                                return false;
-                            }
-                        });
+            /*---items from Koha---*/
+            if (sourceid.includes("_KOHA") && toplevels.includes("available")) {
+                /*---items from Koha---*/
+                kohaItemDataService.kohaData(sourcerecordid).then(function (successResponse) {
+                    $scope.items = successResponse;
+                    /*--- display custom koha items table ----*/
+                    $scope.kohaTableDisplay = true
+                    /*---hide native primo items table ----*/
+                    let elems = angular.element(document.querySelectorAll('prm-opac md-tabs.tabs-as-app'))
+                    let index = 0,
+                        length = elems.length;
+                    for (; index < length; index++) {
+                        elems[index].style.display = 'none';
                     }
-
+                    /*----Réservation button----*/
+                    $scope.record_type = type
+                    $scope.biblio_id = sourcerecordid
+                    let reservationUrl = URLs._UCA_CAS + URLs._koha_prod + "/cgi-bin/koha/opac-reserve.pl?biblionumber=" + sourcerecordid
+                    $scope.open = function () {
+                        window.open(reservationUrl, "_system");
+                        return false;
+                    }
+                });
+            }
+            else {
+                //if error, returns to native Primo display
+                $scope.kohaTableDisplay = false;
+            }
         }
     }
 }]).component('prmOpacAfter', {
-	  bindings: {parentCtrl: '<'},
+    bindings: { parentCtrl: '<' },
     controller: 'kohaItemsTableController',
     templateUrl: 'custom/UCA/html/prmOpacAfter.html'
-  });
+});
