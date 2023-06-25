@@ -33,11 +33,14 @@ app.provider('KOHA_MIDDLEWARE_URL', ['URLs', function (URLs) {
 
 ## Développement : Build & déploiement
 
+Tous les développements se font dans /primo-explore/custom/UCA
+
 ### Installation en local sur PC
 
 #### Pré-requis
 
 - node.js v14 (14.19.0)
+- idéalement nvm pour la gestion des versions de node.js
 - Gulp (npm install -g gulp)
 - Browserify (npm install -g browserify)
 
