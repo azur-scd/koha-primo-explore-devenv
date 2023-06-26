@@ -41,7 +41,7 @@ Tous les développements se font dans /primo-explore/custom/UCA
 
 - node.js v14 (14.19.0)
 - idéalement nvm pour la gestion des versions de node.js
-- Gulp (npm install -g gulp)
+- Gulp (npm install -g gulp et npm install -g gulp-cli)
 - Browserify (npm install -g browserify)
 
 

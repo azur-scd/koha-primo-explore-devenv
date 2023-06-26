@@ -23,16 +23,12 @@ angular.module('kohaItemsTable', ['kohaServices']).controller('kohaItemsTableCon
             if (sourceid.includes("_KOHA") && toplevels.includes("available")) {
                 /*---items from Koha---*/
                 kohaItemDataService.kohaData(sourcerecordid).then(function (successResponse) {
-                    $scope.items = successResponse;
+                    $scope.items = successResponse.items;
+                    $scope.resa = successResponse.resa_button;
                     /*--- display custom koha items table ----*/
                     $scope.kohaTableDisplay = true
                     /*---hide native primo items table ----*/
-                    let elems = angular.element(document.querySelectorAll('prm-opac md-tabs.tabs-as-app'))
-                    let index = 0,
-                        length = elems.length;
-                    for (; index < length; index++) {
-                        elems[index].style.display = 'none';
-                    }
+                    angular.element(document.querySelector('prm-opac>md-tabs'))[0].style.display = "none"
                     /*----Réservation button----*/
                     $scope.record_type = type
                     $scope.biblio_id = sourcerecordid

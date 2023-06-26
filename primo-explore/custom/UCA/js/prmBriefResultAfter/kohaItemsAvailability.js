@@ -17,20 +17,30 @@ angular.module('kohaItemsAvailability', ['kohaServices']).controller('kohaItemsA
             if (sourceid.includes("_KOHA") && toplevels.includes("available")) {
                 /*---items from Koha---*/
                 kohaItemDataService.kohaData(sourcerecordid).then(function (successResponse) {
-                    $scope.items = successResponse;
+                    $scope.items = successResponse.items;
                     /*--- display custom koha items ----*/
                     $scope.kohaDisplay = true
                     /*---hide div.search-result-availability-line-wrapper if prm-icon is physical item----*/
                     // first try : $element.parent().parent().children()[3].style.display = "none"
-                    let elems = angular.element(document.querySelectorAll('div.result-item-text div.search-result-availability-line-wrapper prm-search-result-availability-line div.layout-align-start-start div.layout-row'));
+                    // second try : 
+                    let elems = angular.element(document.querySelectorAll('div.search-result-availability-line-wrapper > prm-search-result-availability-line > div.layout-align-start-start > div.layout-row'));
                     console.log(elems)
+                    length = elems.length;
+                    for (let index = 0; index < length; index++) {
+                       console.log(elems[index])
+                       if (elems[index].querySelector('prm-icon[ng-if*="$ctrl.isPhysical"]')) {
+                        elems[index].style.display = 'none';
+                       }
+                    }
+                   /* let elems = angular.element(document.querySelectorAll('div.search-result-availability-line-wrapper > prm-search-result-availability-line > div.layout-align-start-start > div.layout-row'));
                     let index = 0,
                         length = elems.length;
                     for (; index < length; index++) {
                         if (elems[index].querySelector('prm-icon[ng-if*="$ctrl.isPhysical"]')) {
+                            console.log(elems[index])
                             elems[index].style.display = 'none';
                         }
-                    }
+                    }*/
                     $scope.record_type = type
                     $scope.biblio_id = sourcerecordid
 

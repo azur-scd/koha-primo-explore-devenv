@@ -39,8 +39,8 @@ app.constant('URLs', {
   _testbiblibre_koha_api_privee: 'https://demo.biblibre.com/api/v1/',
   _preprod_koha_api_public: 'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu/api/v1/public/',
   _preprod_koha_api_privee: 'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu/api/v1/',
-  _local_koha_primo_middleware: 'https://localhost:5000/koha-primo-middleware/api/v1/koha/',
-  _devscd_koha_primo_middleware: 'http://dev-scd.unice.fr/koha-primo-middleware/api/v1/koha/',
+  _local_koha_primo_middleware: 'https://localhost:5000/koha-primo-middleware/api/v0/koha/',
+  _devscd_koha_primo_middleware: 'http://dev-scd.unice.fr/koha-primo-middleware/api/v0/koha/',
   _prodscd_koha_primo_middleware: 'https://api-scd.univ-cotedazur.fr/koha-primo-middleware/api/v1/koha/',
 });
 

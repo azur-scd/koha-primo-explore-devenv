@@ -1,5 +1,5 @@
 <prm-uca-items-table-koha>
-    <div class="bar alert-bar zero-margin-bottom layout-align-center-center layout-row" ng-if="userIsGuest">
+    <div class="bar alert-bar zero-margin-bottom layout-align-center-center layout-row" ng-if="userIsGuest && record_type != 'journal' && resa != 'no button'">
         <div class="md-dialog-content">
             Veuillez vous identifier pour réserver/faire venir des documents.
             <prm-authentication></prm-authentication>
@@ -8,8 +8,8 @@
     <div layout="row" layout-align="space-between center">
         <h3 class="section-title" ng-if="kohaTableDisplay"><span translate="nui.locations.header"></span>
         </h3>
-        <button class="md-button md-primoExplore-theme button-reservation" ng-if="record_type != 'journal'"
-            ng-click="open()">Réservation/Navette interBU</button>
+        <button class="md-button md-primoExplore-theme button-reservation" ng-if="record_type != 'journal' && resa != 'no button'"
+            ng-click="open()">{{resa}}</button>
     </div>
     <md-list ng-if="items" layout="column"
         class="separate-list-items margin-left-medium md-primoExplore-theme layout-column" role="list" ng-if="kohaTableDisplay">
