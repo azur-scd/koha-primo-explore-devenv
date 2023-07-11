@@ -9,14 +9,32 @@ angular.module('kohaItemsAvailability', ['kohaServices', 'shareDataService']).co
             $scope.kohaDisplay = false;
             /*---bib record metadata---*/
             let obj = $scope.$ctrl.parentCtrl.item.pnx;
-            let data = pnxShareDataService.pnxData(obj)
-                if(data) {
+            console.log(pnxShareDataService.pnxData(obj))
+            let type = obj.display.type[0];
+            let toplevels = obj.facets.toplevel
+            /*---bib record identifers --------*/
+            let sourceids = obj.control.sourceid;
+            let sourcerecordid = obj.control.sourcerecordid[0]
+            /*--- init ----*/
+            let koha_ids;
+            if(sourceids.some(x => x.includes("_KOHA")) && toplevels.includes("available")) {
+                if(sourceids.length > 1) {
+                    koha_ids = sourceids
+                    .filter(item => item.includes("_KOHA"))
+                    .map(x => x.split("$$O33UCA_KOHA")[1])
+                    .toString()
+                }
+                else {
+                    koha_ids = sourcerecordid
+                }
                 /*---items from Koha---*/
-                kohaItemDataService.kohaData(data.koha_ids).then(function (successResponse) {
+                kohaItemDataService.kohaData(koha_ids).then(function (successResponse) {
                     $scope.items = successResponse.items;
                     /*--- display custom koha items ----*/
                     $scope.kohaDisplay = true
-                    /*---hide div.search-result-availability-line-wrapper if prm-icon is physical item----*/ 
+                    /*---hide div.search-result-availability-line-wrapper if prm-icon is physical item----*/
+                    // first try : $element.parent().parent().children()[3].style.display = "none"
+                    // second try : 
                     let elems = angular.element(document.querySelectorAll('div.search-result-availability-line-wrapper > prm-search-result-availability-line > div.layout-align-start-start > div.layout-row'));
                     //console.log(elems)
                     length = elems.length;
@@ -26,7 +44,17 @@ angular.module('kohaItemsAvailability', ['kohaServices', 'shareDataService']).co
                         elems[index].style.display = 'none';
                        }
                     }
-                    $scope.record_type = data.type
+                   /* let elems = angular.element(document.querySelectorAll('div.search-result-availability-line-wrapper > prm-search-result-availability-line > div.layout-align-start-start > div.layout-row'));
+                    let index = 0,
+                        length = elems.length;
+                    for (; index < length; index++) {
+                        if (elems[index].querySelector('prm-icon[ng-if*="$ctrl.isPhysical"]')) {
+                            console.log(elems[index])
+                            elems[index].style.display = 'none';
+                        }
+                    }*/
+                    $scope.record_type = type
+                    $scope.biblio_id = sourcerecordid
 
                 });
             }

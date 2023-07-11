@@ -72,6 +72,12 @@ app.component('prmExploreMainAfter', {
   templateUrl: 'custom/UCA/html/matomo.html'
 });
 
+// Bandeau information
+app.component('prmSearchBarAfter', {
+  bindings: {parentCtrl: '<'},
+  template: '<div class="bar custom-alert-bar layout-align-center-center layout-row" layout="row" layout-align="center center"><b>En raison du changement du catalogue des bibliothèques</b> la réservation des documents et <span style="margin-left:5px;margin-right:5px;">la navette interBU</span> seront interrompues du 13 au 23 février. <a href="https://bu.univ-cotedazur.fr/fr/contents/actualites/evolution-du-catalogue-des-bibliotheques" target="_blanck"> En savoir plus</a></div>'
+});
+
 /*
 [Unused] Init template for custom display of exemplaire
 app.run(['$templateCache', function($templateCache) {

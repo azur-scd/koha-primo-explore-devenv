@@ -8,20 +8,22 @@
     <div layout="row" layout-align="space-between center">
         <h3 class="section-title" ng-if="kohaTableDisplay"><span translate="nui.locations.header"></span>
         </h3>
-        <button class="md-button md-primoExplore-theme button-reservation" ng-if="record_type != 'journal' && resa != 'no button'"
+        <div ng-if="record_type != 'journal'">
+        <button class="md-button md-primoExplore-theme button-reservation" ng-if="resa != 'no button'"
             ng-click="open()">{{resa}}</button>
+            </div>
     </div>
     <md-list ng-if="items" layout="column"
         class="separate-list-items margin-left-medium md-primoExplore-theme layout-column" role="list" ng-if="kohaTableDisplay">
         <md-list-item ng-repeat="item in items" class="md-2-line md-no-proxy _md" role="listitem">
             <div class="koha-items-table md-list-item-text" layout="row" layout-wrap flex>
-                <div flex-xs="110" flex-sm="110" flex-md="35" flex-lg="35">
+                <div flex-xs="110" flex-sm="110" flex-md="35" flex-lg="35" flex-xl="25">
                     <div ng-if="item.home_library_id">
                         <h4 class="homebranch"><strong> {{item.home_library_id}}</strong></h4>
                         <md-tooltip>{{item.home_library_id}}</md-tooltip>
                     </div>
                 </div>
-                <div flex-xs="100" flex-sm="100" flex-md="15" flex-lg="15">
+                <div flex-xs="100" flex-sm="100" flex-md="15" flex-lg="15" flex-xl="35">
                     <p class="weak-text" ng-if="item.location"> {{item.location}}</p>
                     <p class="callnum" ng-if="item.callnumber"> {{item.callnumber}} <span
                             ng-if="item.loan_type">({{item.loan_type}})</span></p>

@@ -1,7 +1,7 @@
 angular.module('kohaServices', []).factory('kohaItemDataService', ['$http', '$q', 'KOHA_MIDDLEWARE_URL', function ($http, $q, KOHA_MIDDLEWARE_URL) {
   return {
-    kohaData: function (sourcerecordid) {
-      let url = KOHA_MIDDLEWARE_URL._api + "biblios_items/" + sourcerecordid
+    kohaData: function (koha_ids) {
+      let url = KOHA_MIDDLEWARE_URL._api + "biblios_items?biblio_ids=" + koha_ids
       return $http({
         "headers": {
           'Content-Type': 'application/json',
