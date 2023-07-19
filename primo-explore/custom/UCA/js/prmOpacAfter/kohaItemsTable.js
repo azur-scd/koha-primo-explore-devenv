@@ -12,6 +12,7 @@ angular.module('kohaItemsTable', ['kohaServices', 'shareDataService']).controlle
             self.rootScope = $rootScope;
             let userData = self.rootScope.$$childHead.$ctrl.userSessionManagerService;
             $scope.userIsGuest = userData.isGuest();
+            console.log($scope)
             /*--- bib record metadata ---*/
             let obj = $scope.$ctrl.parentCtrl.item.pnx;
             let data = pnxShareDataService.pnxData(obj)

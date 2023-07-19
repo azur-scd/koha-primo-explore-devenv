@@ -9,6 +9,7 @@ angular.module('kohaItemsAvailability', ['kohaServices', 'shareDataService']).co
             $scope.kohaDisplay = false;
             /*---bib record metadata---*/
             let obj = $scope.$ctrl.parentCtrl.item.pnx;
+            console.log(obj)
             let data = pnxShareDataService.pnxData(obj)
                 if(data) {
                 /*---items from Koha---*/

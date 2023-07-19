@@ -33,13 +33,13 @@ app.config(['$sceDelegateProvider', function ($sceDelegateProvider) {
 //urls declaration
 app.constant('URLs', {
   _UCA_CAS: 'https://login.unice.fr/login?service=',
-  _koha_prod: 'https://catalogue-bu-univ-cotedazur.biblibre.fr',
+ /* _koha_prod: 'https://catalogue-bu-univ-cotedazur.biblibre.fr',
   _koha_preprod: 'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu',
   _testbiblibre_koha_api_public: 'https://demo.biblibre.com/api/v1/public/',
   _testbiblibre_koha_api_privee: 'https://demo.biblibre.com/api/v1/',
   _preprod_koha_api_public: 'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu/api/v1/public/',
-  _preprod_koha_api_privee: 'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu/api/v1/',
-  _local_koha_primo_middleware: 'https://localhost:5000/koha-primo-middleware/api/v0/koha/',
+  _preprod_koha_api_privee: 'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu/api/v1/',*/
+  _local_koha_primo_middleware: 'https://localhost:5000/koha-primo-middleware/api/v1/koha/',
   _devscd_koha_primo_middleware: 'http://dev-scd.unice.fr/koha-primo-middleware/api/v0/koha/',
   _prodscd_koha_primo_middleware: 'https://api-scd.univ-cotedazur.fr/koha-primo-middleware/api/v1/koha/',
 });
@@ -47,7 +47,7 @@ app.constant('URLs', {
 app.provider('KOHA_MIDDLEWARE_URL', ['URLs', function (URLs) {
   this.$get = function () {
     return {
-      _api: URLs._devscd_koha_primo_middleware
+      _api: URLs._local_koha_primo_middleware // pour passer en prod : remplacer par URLS. _prodscd_koha_primo_middleware
     };
   }
 }]);
@@ -69,13 +69,14 @@ app.component('prmTopBarBefore', {
 
 // matomo
 app.component('prmExploreMainAfter', {
+  bindings: {parentCtrl: '<'},
   templateUrl: 'custom/UCA/html/matomo.html'
 });
 
 // Bandeau information
 app.component('prmSearchBarAfter', {
   bindings: {parentCtrl: '<'},
-  template: '<div class="bar custom-alert-bar layout-align-center-center layout-row" layout="row" layout-align="center center"><b>En raison du changement du catalogue des bibliothèques</b> la réservation des documents et <span style="margin-left:5px;margin-right:5px;">la navette interBU</span> seront interrompues du 13 au 23 février. <a href="https://bu.univ-cotedazur.fr/fr/contents/actualites/evolution-du-catalogue-des-bibliotheques" target="_blanck"> En savoir plus</a></div>'
+  template: '<div class="bar custom-alert-bar layout-align-center-center layout-row" layout="row" layout-align="center center"><b>Vacances d\'été</b> : la <span style="margin-left:5px;margin-right:5px;">navette interBU</span> est interrompue du 21 juillet au 21 août. <a href="https://bu.univ-cotedazur.fr/fr/contents/actualites/fermeture-estivale-des-bu-et-des-services" target="_blanck"> En savoir plus</a></div>'
 });
 
 /*
