@@ -33,8 +33,8 @@ app.config(['$sceDelegateProvider', function ($sceDelegateProvider) {
 //urls declaration
 app.constant('URLs', {
   _UCA_CAS: 'https://login.unice.fr/login?service=',
- /* _koha_prod: 'https://catalogue-bu-univ-cotedazur.biblibre.fr',
-  _koha_preprod: 'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu',
+  _koha_prod: 'https://catalogue-bu-univ-cotedazur.biblibre.fr', // important pour le bouton résa
+ /* _koha_preprod: 'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu',
   _testbiblibre_koha_api_public: 'https://demo.biblibre.com/api/v1/public/',
   _testbiblibre_koha_api_privee: 'https://demo.biblibre.com/api/v1/',
   _preprod_koha_api_public: 'https://catalogue-bu-cotedazur-koha.preprod.biblibre.eu/api/v1/public/',
@@ -47,7 +47,7 @@ app.constant('URLs', {
 app.provider('KOHA_MIDDLEWARE_URL', ['URLs', function (URLs) {
   this.$get = function () {
     return {
-      _api: URLs._local_koha_primo_middleware // pour passer en prod : remplacer par URLS. _prodscd_koha_primo_middleware
+      _api: URLs._prodscd_koha_primo_middleware // pour passer en prod : remplacer par URLS. _prodscd_koha_primo_middleware
     };
   }
 }]);

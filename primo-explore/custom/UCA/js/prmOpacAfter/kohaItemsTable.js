@@ -1,8 +1,9 @@
 import { kohaServices } from '../customServices/kohaServices';
 import { shareDataService } from '../customServices/shareDataService';
 
-angular.module('kohaItemsTable', ['kohaServices', 'shareDataService']).controller('kohaItemsTableController', ['$scope', '$rootScope', 'URLs', 'kohaItemDataService', 'pnxShareDataService', function ($scope, $rootScope, URLs, kohaItemDataService, pnxShareDataService) {
+angular.module('kohaItemsTable', ['kohaServices', 'shareDataService']).controller('kohaItemsTableController', ['$scope', '$state','$rootScope', 'URLs', 'kohaItemDataService', 'pnxShareDataService', function ($scope, $state, $rootScope, URLs, kohaItemDataService, pnxShareDataService) {
     this.$onInit = function () {
+        setTimeout(() => {
         if ($scope.$ctrl.parentCtrl.item) {
             /*---default : kohaTable display false----*/
             $scope.kohaTableDisplay = false;
@@ -38,8 +39,10 @@ angular.module('kohaItemsTable', ['kohaServices', 'shareDataService']).controlle
             else {
                 //if error, returns to native Primo display
                 $scope.kohaTableDisplay = false;
+                angular.element(document.querySelector('prm-opac>md-tabs'))[0].style.display = "block"
             }
         }
+    }, "500");
     }
 }]).component('prmOpacAfter', {
     bindings: { parentCtrl: '<' },

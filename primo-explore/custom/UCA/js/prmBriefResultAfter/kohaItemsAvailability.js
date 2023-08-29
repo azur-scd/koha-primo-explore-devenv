@@ -2,8 +2,9 @@
 import { kohaServices } from '../customServices/kohaServices';
 import { shareDataService } from '../customServices/shareDataService';
 
-angular.module('kohaItemsAvailability', ['kohaServices', 'shareDataService']).controller('kohaItemsAvailabilityController', ['$scope', 'kohaItemDataService', 'pnxShareDataService', function ($scope, kohaItemDataService, pnxShareDataService) {
+angular.module('kohaItemsAvailability', ['kohaServices', 'shareDataService']).controller('kohaItemsAvailabilityController', ['$scope', '$state','kohaItemDataService', 'pnxShareDataService', function ($scope, $state, kohaItemDataService, pnxShareDataService) {
     this.$onInit = function () {
+        setTimeout(() => {
         if ($scope.$ctrl.parentCtrl.item) {
             /*--- default : koha display false----*/
             $scope.kohaDisplay = false;
@@ -17,16 +18,16 @@ angular.module('kohaItemsAvailability', ['kohaServices', 'shareDataService']).co
                     $scope.items = successResponse.items;
                     /*--- display custom koha items ----*/
                     $scope.kohaDisplay = true
-                    /*---hide div.search-result-availability-line-wrapper if prm-icon is physical item----*/ 
-                    let elems = angular.element(document.querySelectorAll('div.search-result-availability-line-wrapper > prm-search-result-availability-line > div.layout-align-start-start > div.layout-row'));
-                    //console.log(elems)
-                    length = elems.length;
-                    for (let index = 0; index < length; index++) {
-                       //console.log(elems[index])
-                       if (elems[index].querySelector('prm-icon[ng-if*="$ctrl.isPhysical"]')) {
-                        elems[index].style.display = 'none';
-                       }
-                    }
+                   /*---hide div.search-result-availability-line-wrapper if prm-icon is physical item----*/ 
+             let elems = angular.element(document.querySelectorAll('div.search-result-availability-line-wrapper > prm-search-result-availability-line > div.layout-align-start-start > div.layout-row'));
+             //console.log(elems)
+             length = elems.length;
+             for (let index = 0; index < length; index++) {
+                //console.log(elems[index])
+                if (elems[index].querySelector('prm-icon[ng-if*="$ctrl.isPhysical"]')) {
+                 elems[index].style.display = 'none';
+                }
+             }
                     $scope.record_type = data.type
 
                 });
@@ -36,6 +37,7 @@ angular.module('kohaItemsAvailability', ['kohaServices', 'shareDataService']).co
             }
 
         }
+    }, "500");
     }
 }]).component('prmBriefResultAfter', {
     bindings: { parentCtrl: '<' },
